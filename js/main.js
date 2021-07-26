@@ -14,7 +14,7 @@ for (let i=0; i<giocate && fail==false; i++) {
     let num=0;
     do{
         num=prompt("inserisi un numero da 1 a 100");
-    }while(isNaN(num) || (parseInt(num)<=0 || parseInt(num)>100) || controllo_giocatore(numeri_scelti,parseInt(num)));
+    }while(isNaN(num) || num=="" || (parseInt(num)<=0 || parseInt(num)>100) || controllo_giocatore(numeri_scelti,parseInt(num)));
     numeri_scelti.push(parseInt(num));
     fail=controllo_fail(numeri_vietati,parseInt(num));
     contatore++;
