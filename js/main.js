@@ -1,9 +1,9 @@
 let numeri_vietati=[];
 let numeri_scelti=[];
-let numero_bombe=8;
-let max=10;
+let numero_bombe=16;
+let max=100;
 let min=1
-let numeri_totali=10;
+let numeri_totali=100;
 let giocate=numeri_totali-numero_bombe;
 let contatore=0;
 for (let i=0; i<numero_bombe;i++) {
