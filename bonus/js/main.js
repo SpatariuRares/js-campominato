@@ -52,26 +52,46 @@ function controllo_fail(array,n){
         document.getElementById("numeri_vietati").innerHTML=numeri_vietati;
         document.getElementById("numeri_scelti").innerHTML=numeri_scelti;
         document.getElementById("gui_fail").classList.remove("none");
+        return false;
     }
     contatore++;
     if(contatore==giocate){
-        console.log("hai vinto "+ contatore);
+        document.getElementById("gui_game").className=document.getElementById("gui_game").classList+" none";
+        document.getElementById("message").innerHTML="hai vinto";
+        document.getElementById("numeri_vietati").innerHTML=numeri_vietati;
+        document.getElementById("numeri_scelti").innerHTML=numeri_scelti;
+        document.getElementById("gui_fail").classList.remove("none");
     }
+    return true 
+}
+
+function reset_gui(){
+    document.getElementById("gui_game").innerHTML=""
 }
 
 function create_gui_game(){
-    for (let i=1;i<=giocate;i++){
+    for (let i=1;i<=max;i++){
         let cella=`
-            <div data-cella="${i}" class="cella></div>
-        `
+            <div data-cella="${i}" class="cella"></div>
+        `;
         let template=document.createElement("DIV");
         template.classList.add("quadrato");
         template.innerHTML = cella;
-        console.log(cella);
         document.getElementById("gui_game").appendChild(template);
     }
 }
 
+document.getElementById("gui_game").addEventListener("click",
+    function(e){
+        let num=e.target.dataset.cella;
+        if(!(controllo_giocatore(numeri_scelti,parseInt(num)))){
+            numeri_scelti.push(parseInt(num))
+            if(controllo_fail(numeri_vietati,parseInt(num))){
+                e.target.classList.add("bg-success")
+            }
+        }
+    }
+)
 
 
 function start(){
@@ -90,6 +110,7 @@ function start(){
     for (let i=0; i<numero_bombe;i++) {
         numeri_vietati.push(controllo_no_ripetizioni(numeri_vietati));
     }
+    reset_gui();
     create_gui_game();
     document.getElementById("gui_game").classList.remove("none");
 }
