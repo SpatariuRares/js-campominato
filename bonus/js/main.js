@@ -48,7 +48,7 @@ function controllo_giocatore(array,n){
 function controllo_fail(array,n){
     if(array.includes(n)){
         document.getElementById("gui_game").className=document.getElementById("gui_game").classList+" none";
-        document.getElementById("message").innerHTML="hai perso";
+        document.getElementById("message").innerHTML="hai perso "+contatore;
         document.getElementById("numeri_vietati").innerHTML=numeri_vietati;
         document.getElementById("numeri_scelti").innerHTML=numeri_scelti;
         document.getElementById("gui_fail").classList.remove("none");
@@ -57,7 +57,7 @@ function controllo_fail(array,n){
     contatore++;
     if(contatore==giocate){
         document.getElementById("gui_game").className=document.getElementById("gui_game").classList+" none";
-        document.getElementById("message").innerHTML="hai vinto";
+        document.getElementById("message").innerHTML="hai vinto "+contatore;
         document.getElementById("numeri_vietati").innerHTML=numeri_vietati;
         document.getElementById("numeri_scelti").innerHTML=numeri_scelti;
         document.getElementById("gui_fail").classList.remove("none");
@@ -81,6 +81,28 @@ function create_gui_game(){
     }
 }
 
+function controllo_intorno(num,indicatore){
+    //sopra
+    let contatore_bombe=0;
+    num=parseInt(num);
+    for (let i=num-9;i>=num-11;i--){
+        if(controllo_giocatore(numeri_vietati,parseInt(i))){
+            contatore_bombe++;
+        }
+    }
+    for (let i=num+1;i>=num-1;i--){
+        if(controllo_giocatore(numeri_vietati,parseInt(i))){
+            contatore_bombe++;
+        }
+    }
+    for (let i=num+9;i<=num+11;i++){
+        if(controllo_giocatore(numeri_vietati,parseInt(i))){
+            contatore_bombe++;
+        }
+    }
+    indicatore.innerHTML=contatore_bombe;
+}
+
 document.getElementById("gui_game").addEventListener("click",
     function(e){
         let num=e.target.dataset.cella;
@@ -90,6 +112,7 @@ document.getElementById("gui_game").addEventListener("click",
                 e.target.classList.add("bg-success")
             }
         }
+        controllo_intorno(num,e.target)
     }
 )
 
