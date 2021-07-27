@@ -86,18 +86,24 @@ function controllo_intorno(num,indicatore){
     let contatore_bombe=0;
     num=parseInt(num);
     for (let i=num-9;i>=num-11;i--){
-        if(controllo_giocatore(numeri_vietati,parseInt(i))){
-            contatore_bombe++;
+        if(i>0 && i<101){
+            if(controllo_giocatore(numeri_vietati,parseInt(i))){
+                contatore_bombe++;
+            }
         }
     }
     for (let i=num+1;i>=num-1;i--){
-        if(controllo_giocatore(numeri_vietati,parseInt(i))){
-            contatore_bombe++;
+        if(i>0 && i<101){
+            if(controllo_giocatore(numeri_vietati,parseInt(i))){
+                contatore_bombe++;
+            }
         }
     }
     for (let i=num+9;i<=num+11;i++){
-        if(controllo_giocatore(numeri_vietati,parseInt(i))){
-            contatore_bombe++;
+        if(i>0 && i<101){
+            if(controllo_giocatore(numeri_vietati,parseInt(i))){
+                contatore_bombe++;
+            }
         }
     }
     indicatore.innerHTML=contatore_bombe;
@@ -133,6 +139,7 @@ function start(){
     for (let i=0; i<numero_bombe;i++) {
         numeri_vietati.push(controllo_no_ripetizioni(numeri_vietati));
     }
+    contatore=0;
     reset_gui();
     create_gui_game();
     document.getElementById("gui_game").classList.remove("none");
