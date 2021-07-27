@@ -5,17 +5,16 @@ let max=100;
 let min=1
 //let dificolta=scelta_dificolta();
 let contatore=0;
-
+let giocate;
 document.getElementById("start").addEventListener("click",start);
-
+/*
 document.getElementById("numero").addEventListener("keyup", function(event) {
-  // Number 13 is the "Enter" key on the keyboard
+  Number 13 is the "Enter" key on the keyboard
   let num;
   if (event.keyCode === 13) {
-    // Cancel the default action, if needed
+    Cancel the default action, if needed
     event.preventDefault();
-    // Trigger the button element with a click
-    document.getElementById("btnumber").click();
+    Trigger the button element with a click
     num=parseInt(document.getElementById("numero").value);
     if(num!="" && !(controllo_giocatore(numeri_scelti,parseInt(num)))){
         numeri_scelti.push(parseInt(num));
@@ -23,7 +22,7 @@ document.getElementById("numero").addEventListener("keyup", function(event) {
     controllo_fail(numeri_vietati,parseInt(num));
   }
 });
-
+*/
 
 
 
@@ -55,8 +54,21 @@ function controllo_fail(array,n){
         document.getElementById("gui_fail").classList.remove("none");
     }
     contatore++;
-    if(contatore==(max-numero_bombe)){
+    if(contatore==giocate){
         console.log("hai vinto "+ contatore);
+    }
+}
+
+function create_gui_game(){
+    for (let i=1;i<=giocate;i++){
+        let cella=`
+            <div data-cella="${i}" class="cella></div>
+        `
+        let template=document.createElement("DIV");
+        template.classList.add("quadrato");
+        template.innerHTML = cella;
+        console.log(cella);
+        document.getElementById("gui_game").appendChild(template);
     }
 }
 
@@ -74,9 +86,10 @@ function start(){
     }else if(difficolta==3){
         max=50;
     }
-    let giocate=max-numero_bombe;
+    giocate=max-numero_bombe;
     for (let i=0; i<numero_bombe;i++) {
         numeri_vietati.push(controllo_no_ripetizioni(numeri_vietati));
     }
+    create_gui_game();
     document.getElementById("gui_game").classList.remove("none");
 }
